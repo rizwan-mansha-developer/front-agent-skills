@@ -1,0 +1,36 @@
+{
+  "name": "agent-skills",
+  "version": "1.0.0",
+  "description": "A collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities.",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd packages/react-best-practices-build && pnpm build",
+    "validate": "cd packages/react-best-practices-build && pnpm validate",
+    "extract-tests": "cd packages/react-best-practices-build && pnpm extract-tests",
+    "dev": "cd packages/react-best-practices-build && pnpm dev"
+  },
+  "keywords": [
+    "ai",
+    "coding-agents",
+    "react",
+    "nextjs",
+    "best-practices",
+    "skills",
+    "automation"
+  ],
+  "author": "Rizwan Mansha",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rizwan-mansha-developer/front-agent-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rizwan-mansha-developer/front-agent-skills/issues"
+  },
+  "homepage": "https://github.com/rizwan-mansha-developer/front-agent-skills#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}

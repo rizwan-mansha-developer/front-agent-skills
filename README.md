@@ -4,6 +4,20 @@ A collection of skills for AI coding agents. Skills are packaged instructions an
 
 Skills follow the [Agent Skills](https://agentskills.io/) format.
 
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/rizwan-mansha-developer/front-agent-skills.git
+cd agent-skills
+
+# Install dependencies
+pnpm install
+
+# Build the skills
+pnpm build
+```
+
 ## Available Skills
 
 ### react-best-practices
@@ -49,40 +63,69 @@ Review UI code for compliance with web interface best practices. Audits your cod
 - Touch & Interaction (touch-action, tap-highlight)
 - Locale & i18n (Intl.DateTimeFormat, Intl.NumberFormat)
 
-### vercel-deploy-claimable
+### test-generator
 
-Deploy applications and websites to Vercel instantly. Designed for use with claude.ai and Claude Desktop to enable deployments directly from conversations. Deployments are "claimable" - users can transfer ownership to their own Vercel account.
+Generate comprehensive test cases for any feature, function, or component. Creates unit, integration, and edge case tests automatically.
 
 **Use when:**
-- "Deploy my app"
-- "Deploy this to production"
-- "Push this live"
-- "Deploy and give me the link"
+- "Generate tests for this function"
+- "Create test cases"
+- "Write tests for my component"
+- "Test this feature"
+- "Generate unit tests"
 
 **Features:**
-- Auto-detects 40+ frameworks from `package.json`
-- Returns preview URL (live site) and claim URL (transfer ownership)
-- Handles static HTML projects automatically
-- Excludes `node_modules` and `.git` from uploads
+- Supports React/TypeScript/JavaScript/Python
+- Creates proper test file structure
+- Includes mocking and setup
+- Covers happy path, edge cases, and errors
+- Generates accessibility and performance tests
 
-**How it works:**
-1. Packages your project into a tarball
-2. Detects framework (Next.js, Vite, Astro, etc.)
-3. Uploads to deployment service
-4. Returns preview URL and claim URL
+### test-runner
 
-**Output:**
-```
-Deployment successful!
+Execute and manage test suites with detailed reporting. Run tests, generate coverage reports, and analyze results.
 
-Preview URL: https://skill-deploy-abc123.vercel.app
-Claim URL:   https://vercel.com/claim-deployment?code=...
-```
+**Use when:**
+- "Run my tests"
+- "Check test coverage"
+- "Execute test suite"
+- "Run tests with coverage"
+- "Test my code"
+
+**Features:**
+- Auto-detects test frameworks (Jest, pytest, Mocha, Vitest)
+- Generates coverage reports
+- Provides detailed test results
+- Supports watch mode and filtering
+- Performance metrics and insights
+
+
 
 ## Installation
 
 ```bash
-npx add-skill vercel-labs/agent-skills
+# Clone the repository
+git clone https://github.com/rizwan-mansha-developer/front-agent-skills.git
+cd agent-skills
+
+# Install dependencies
+pnpm install
+
+# Build the skills
+pnpm build
+```
+
+## Development
+
+```bash
+# Validate all rules
+pnpm validate
+
+# Extract test cases
+pnpm extract-tests
+
+# Development mode (build + validate)
+pnpm dev
 ```
 
 ## Usage
@@ -91,13 +134,16 @@ Skills are automatically available once installed. The agent will use them when 
 
 **Examples:**
 ```
-Deploy my app
-```
-```
 Review this React component for performance issues
 ```
 ```
 Help me optimize this Next.js page
+```
+```
+Generate tests for this function
+```
+```
+Run my tests with coverage
 ```
 
 ## Skill Structure

@@ -1,24 +1,27 @@
 ---
-name: vercel-react-best-practices
-description: React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.
+name: nextjs-react-best-practices
+description: React and Next.js 16+ frontend development best practices. This skill should be used when writing, reviewing, or refactoring React/Next.js frontend code to ensure optimal performance patterns and architecture. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or frontend architecture.
 license: MIT
 metadata:
-  author: vercel
-  version: "1.0.0"
+  author: livup-frontend
+  version: "2.0.0"
 ---
 
-# Vercel React Best Practices
+# Next.js React Frontend Best Practices
 
-Comprehensive performance optimization guide for React and Next.js applications, maintained by Vercel. Contains 57 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
+Next.js 16+ frontend development best practices for consuming third-party APIs (NestJS backend). Contains 55 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
 
 ## When to Apply
 
 Reference these guidelines when:
 - Writing new React components or Next.js pages
-- Implementing data fetching (client or server-side)
-- Reviewing code for performance issues
-- Refactoring existing React/Next.js code
+- Implementing client-side data fetching and state management
+- Reviewing frontend code for performance issues
+- Refactoring existing React/Next.js frontend code
 - Optimizing bundle size or load times
+- Setting up frontend project architecture and patterns
+- Configuring build tools and development workflow
+- Implementing frontend authentication flows and error handling
 
 ## Rule Categories by Priority
 
@@ -26,7 +29,7 @@ Reference these guidelines when:
 |----------|----------|--------|--------|
 | 1 | Eliminating Waterfalls | CRITICAL | `async-` |
 | 2 | Bundle Size Optimization | CRITICAL | `bundle-` |
-| 3 | Server-Side Performance | HIGH | `server-` |
+| 3 | Architecture & Patterns | CRITICAL | `architecture-` |
 | 4 | Client-Side Data Fetching | MEDIUM-HIGH | `client-` |
 | 5 | Re-render Optimization | MEDIUM | `rerender-` |
 | 6 | Rendering Performance | MEDIUM | `rendering-` |
@@ -40,8 +43,9 @@ Reference these guidelines when:
 - `async-defer-await` - Move await into branches where actually used
 - `async-parallel` - Use Promise.all() for independent operations
 - `async-dependencies` - Use better-all for partial dependencies
-- `async-api-routes` - Start promises early, await late in API routes
 - `async-suspense-boundaries` - Use Suspense to stream content
+- `async-server-optimization` - Leverage Next.js server-side optimizations
+- `async-api-consumption` - Optimize API calls and data fetching patterns
 
 ### 2. Bundle Size Optimization (CRITICAL)
 
@@ -51,19 +55,19 @@ Reference these guidelines when:
 - `bundle-conditional` - Load modules only when feature is activated
 - `bundle-preload` - Preload on hover/focus for perceived speed
 
-### 3. Server-Side Performance (HIGH)
+### 3. Architecture & Patterns (CRITICAL)
 
-- `server-auth-actions` - Authenticate server actions like API routes
-- `server-cache-react` - Use React.cache() for per-request deduplication
-- `server-cache-lru` - Use LRU cache for cross-request caching
-- `server-dedup-props` - Avoid duplicate serialization in RSC props
-- `server-serialization` - Minimize data passed to client components
-- `server-parallel-fetching` - Restructure components to parallelize fetches
-- `server-after-nonblocking` - Use after() for non-blocking operations
+- `architecture-feature-based` - Organize by features, not technical layers
+- `architecture-strict-typescript` - Enforce strict TypeScript, no any types
+- `architecture-layout-modals` - Manage modals at layout level with imperative hooks
+- `architecture-axios-interceptors` - Centralized request/response handling
+- `architecture-svgr-webpack` - Configure SVGs as React components
+- `architecture-zod-forms` - Zod validation with React Hook Form integration
 
 ### 4. Client-Side Data Fetching (MEDIUM-HIGH)
 
-- `client-swr-dedup` - Use SWR for automatic request deduplication
+- `client-tanstack-query` - Use TanStack Query for data fetching and caching
+- `client-suspense-skeletons` - Always use Suspense with skeleton fallbacks
 - `client-event-listeners` - Deduplicate global event listeners
 - `client-passive-event-listeners` - Use passive listeners for scroll
 - `client-localstorage-schema` - Version and minimize localStorage data

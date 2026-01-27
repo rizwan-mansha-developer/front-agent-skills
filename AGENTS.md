@@ -53,7 +53,7 @@ bash /mnt/skills/user/{skill-name}/scripts/{script}.sh [args]
 
 **Examples:**
 {Show 2-3 common usage patterns}
-
+  
 ## Output
 
 {Show example output users will see}

@@ -20,27 +20,32 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 **Impact:** HIGH  
 **Description:** Optimizing server-side rendering and data fetching eliminates server-side waterfalls and reduces response times.
 
-## 4. Client-Side Data Fetching (client)
+## 4. Architecture & State Management (architecture)
 
 **Impact:** MEDIUM-HIGH  
-**Description:** Automatic deduplication and efficient data fetching patterns reduce redundant network requests.
+**Description:** Proper architecture patterns, state management, and tooling choices that improve maintainability and developer experience.
 
-## 5. Re-render Optimization (rerender)
+## 5. Client-Side Data Fetching (client)
+
+**Impact:** MEDIUM-HIGH  
+**Description:** Automatic deduplication, efficient data fetching patterns, and state management reduce redundant network requests.
+
+## 6. Re-render Optimization (rerender)
 
 **Impact:** MEDIUM  
 **Description:** Reducing unnecessary re-renders minimizes wasted computation and improves UI responsiveness.
 
-## 6. Rendering Performance (rendering)
+## 7. Rendering Performance (rendering)
 
 **Impact:** MEDIUM  
 **Description:** Optimizing the rendering process reduces the work the browser needs to do.
 
-## 7. JavaScript Performance (js)
+## 8. JavaScript Performance (js)
 
 **Impact:** LOW-MEDIUM  
 **Description:** Micro-optimizations for hot paths can add up to meaningful improvements.
 
-## 8. Advanced Patterns (advanced)
+## 9. Advanced Patterns (advanced)
 
 **Impact:** LOW  
 **Description:** Advanced patterns for specific cases that require careful implementation.
