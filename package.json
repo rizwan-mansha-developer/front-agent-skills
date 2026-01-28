@@ -4,11 +4,11 @@
   "description": "A collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities.",
   "main": "index.js",
   "scripts": {
-    "build": "node build.js",
+    "build": "node init && node build.js",
     "build:skills": "bash build.sh || build.bat",
     "validate": "cd packages/react-best-practices-build && pnpm validate",
     "extract-tests": "cd packages/react-best-practices-build && pnpm extract-tests",
-    "dev": "cd packages/react-best-practices-build && pnpm dev",
+    "dev": "node init && cd packages/react-best-practices-build && pnpm dev",
     "package": "pnpm build:skills",
     "clean": "rimraf dist",
     "create-app": "node create-agent-app.js"

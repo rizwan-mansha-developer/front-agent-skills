@@ -81,7 +81,6 @@ dist
 
 # Gatsby files
 .cache/
-public
 
 # Storybook build outputs
 .out
@@ -92,7 +91,6 @@ tmp/
 temp/
 
 # Editor directories and files
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -111,3 +109,7 @@ Thumbs.db
 *.zip
 *.tar.gz
 *.rar
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
