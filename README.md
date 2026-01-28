@@ -8,7 +8,7 @@ Skills follow the [Agent Skills](https://agentskills.io/) format.
 
 ```bash
 # Clone the repository
-git clone https://github.com/rizwan-mansha-developer/front-agent-skills.git
+# git clone https://github.com/rizwan-mansha-developer/front-agent-skills.git
 cd agent-skills
 
 # Install dependencies
@@ -98,6 +98,28 @@ Execute and manage test suites with detailed reporting. Run tests, generate cove
 - Provides detailed test results
 - Supports watch mode and filtering
 - Performance metrics and insights
+
+### shadcn-ui-guidelines
+
+shadcn/ui component library best practices and patterns for Next.js applications. Comprehensive guide for building modern UI components.
+
+**Use when:**
+- Setting up shadcn/ui in a new project
+- Building custom components with shadcn/ui
+- Implementing forms, data tables, or complex UI patterns
+- Customizing themes and design tokens
+- "Help me with shadcn components"
+- "Build a form with shadcn"
+- "Create a data table"
+
+**Features:**
+- Component composition patterns
+- Form handling with React Hook Form + Zod
+- Data table implementations
+- Theme customization strategies
+- Performance optimization
+- Accessibility best practices
+- Next.js App Router integration
 
 
 
