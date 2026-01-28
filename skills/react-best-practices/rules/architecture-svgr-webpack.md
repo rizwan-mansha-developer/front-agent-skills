@@ -47,61 +47,61 @@ const nextConfig = {
       issuer: /\.[jt]sx?$/,
       use: [
         {
-          loader: '@svgr/webpack',
+          loader: "@svgr/webpack",
           options: {
             // Optimize SVGs
             svgo: true,
             svgoConfig: {
               plugins: [
                 {
-                  name: 'preset-default',
+                  name: "preset-default",
                   params: {
                     overrides: {
                       removeViewBox: false, // Keep viewBox for scaling
                     },
                   },
                 },
-                'removeDimensions', // Remove width/height for responsive scaling
+                "removeDimensions", // Remove width/height for responsive scaling
               ],
             },
             // Add TypeScript support
             typescript: true,
             // Make SVGs focusable for accessibility
             replaceAttrValues: {
-              '#000': 'currentColor', // Use currentColor for theming
+              "#000": "currentColor", // Use currentColor for theming
             },
           },
         },
       ],
-    })
+    });
 
-    return config
+    return config;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
 ```
 
 **TypeScript configuration:**
 
 ```ts
 // types/svg.d.ts
-declare module '*.svg' {
-  import { FC, SVGProps } from 'react'
-  const content: FC<SVGProps<SVGSVGElement>>
-  export default content
+declare module "*.svg" {
+  import { FC, SVGProps } from "react";
+  const content: FC<SVGProps<SVGSVGElement>>;
+  export default content;
 }
 
 // Or for more specific typing
-declare module '*.svg' {
-  import { ComponentType, SVGAttributes } from 'react'
-  
+declare module "*.svg" {
+  import { ComponentType, SVGAttributes } from "react";
+
   interface SVGComponent extends ComponentType<SVGAttributes<SVGSVGElement>> {
-    src: string // Also available as URL if needed
+    src: string; // Also available as URL if needed
   }
-  
-  const content: SVGComponent
-  export default content
+
+  const content: SVGComponent;
+  export default content;
 }
 ```
 
@@ -109,25 +109,25 @@ declare module '*.svg' {
 
 ```tsx
 // assets/icons/index.ts - Barrel export for icons
-export { default as CheckIcon } from './check.svg'
-export { default as CloseIcon } from './close.svg'
-export { default as MenuIcon } from './menu.svg'
-export { default as ArrowIcon } from './arrow.svg'
-export { default as UserIcon } from './user.svg'
+export { default as CheckIcon } from "./check.svg";
+export { default as CloseIcon } from "./close.svg";
+export { default as MenuIcon } from "./menu.svg";
+export { default as ArrowIcon } from "./arrow.svg";
+export { default as UserIcon } from "./user.svg";
 
 // components/ui/Icon.tsx - Wrapper component
-import { SVGProps } from 'react'
-import * as Icons from '@/assets/icons'
+import { SVGProps } from "react";
+import * as Icons from "@/assets/icons";
 
-type IconName = keyof typeof Icons
+type IconName = keyof typeof Icons;
 type IconProps = SVGProps<SVGSVGElement> & {
-  name: IconName
-  size?: number | string
-}
+  name: IconName;
+  size?: number | string;
+};
 
 export function Icon({ name, size = 16, className, ...props }: IconProps) {
-  const IconComponent = Icons[name]
-  
+  const IconComponent = Icons[name];
+
   return (
     <IconComponent
       width={size}
@@ -135,25 +135,25 @@ export function Icon({ name, size = 16, className, ...props }: IconProps) {
       className={className}
       {...props}
     />
-  )
+  );
 }
 
 // Usage - fully typed and tree-shakeable
-import { Icon } from '@/components/ui/Icon'
-import { CheckIcon } from '@/assets/icons'
+import { Icon } from "@/components/ui/Icon";
+import { CheckIcon } from "@/assets/icons";
 
-function Button({ children, variant = 'primary' }) {
+function Button({ children, variant = "primary" }) {
   return (
     <button className={`btn btn-${variant}`}>
       {/* Method 1: Direct import */}
-      <CheckIcon className="w-4 h-4 text-current" />
-      
+      <CheckIcon className="h-4 w-4 text-current" />
+
       {/* Method 2: Icon wrapper */}
       <Icon name="CheckIcon" size={16} className="text-green-500" />
-      
+
       {children}
     </button>
-  )
+  );
 }
 ```
 
@@ -168,7 +168,7 @@ const nextConfig = {
       issuer: /\.[jt]sx?$/,
       use: [
         {
-          loader: '@svgr/webpack',
+          loader: "@svgr/webpack",
           options: {
             // Custom template for consistent component structure
             template: (variables, { tpl }) => {
@@ -183,19 +183,19 @@ const ${variables.componentName} = (${variables.props}) => (
 ${variables.componentName}.displayName = '${variables.componentName}';
 
 ${variables.exports};
-`
+`;
             },
             // Add custom props
             replaceAttrValues: {
-              '#000': 'currentColor',
-              '#fff': 'currentColor',
+              "#000": "currentColor",
+              "#fff": "currentColor",
             },
             // Optimize for performance
             svgo: true,
             svgoConfig: {
               plugins: [
                 {
-                  name: 'preset-default',
+                  name: "preset-default",
                   params: {
                     overrides: {
                       removeViewBox: false,
@@ -203,7 +203,7 @@ ${variables.exports};
                     },
                   },
                 },
-                'removeDimensions',
+                "removeDimensions",
               ],
             },
             // TypeScript support
@@ -214,11 +214,11 @@ ${variables.exports};
           },
         },
       ],
-    })
+    });
 
-    return config
+    return config;
   },
-}
+};
 ```
 
 **Usage with accessibility:**
@@ -232,34 +232,30 @@ function DeleteButton({ onDelete, itemName }) {
       className="p-2 text-red-500 hover:bg-red-50"
       aria-label={`Delete ${itemName}`}
     >
-      <TrashIcon 
-        className="w-4 h-4"
+      <TrashIcon
+        className="h-4 w-4"
         title={`Delete ${itemName}`}
         desc="Click to permanently delete this item"
       />
     </button>
-  )
+  );
 }
 
 // Themed icons
-function ThemedIcon({ name, variant = 'default' }) {
+function ThemedIcon({ name, variant = "default" }) {
   const colorClasses = {
-    default: 'text-gray-600',
-    primary: 'text-blue-600',
-    success: 'text-green-600',
-    danger: 'text-red-600',
-  }
-  
-  return (
-    <Icon 
-      name={name} 
-      className={`w-5 h-5 ${colorClasses[variant]}`}
-    />
-  )
+    default: "text-gray-600",
+    primary: "text-blue-600",
+    success: "text-green-600",
+    danger: "text-red-600",
+  };
+
+  return <Icon name={name} className={`h-5 w-5 ${colorClasses[variant]}`} />;
 }
 ```
 
 This configuration provides:
+
 - **Tree-shaking** - only used icons are bundled
 - **Type safety** - TypeScript support for all SVG props
 - **Performance** - optimized SVGs with SVGO

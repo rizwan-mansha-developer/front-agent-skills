@@ -1,3 +1,40 @@
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
 # Agent Skills
 
 A collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities.
@@ -25,12 +62,14 @@ pnpm build
 React and Next.js performance optimization guidelines from Vercel Engineering. Contains 40+ rules across 8 categories, prioritized by impact.
 
 **Use when:**
+
 - Writing new React components or Next.js pages
 - Implementing data fetching (client or server-side)
 - Reviewing code for performance issues
 - Optimizing bundle size or load times
 
 **Categories covered:**
+
 - Eliminating waterfalls (Critical)
 - Bundle size optimization (Critical)
 - Server-side performance (High)
@@ -44,6 +83,7 @@ React and Next.js performance optimization guidelines from Vercel Engineering. C
 Review UI code for compliance with web interface best practices. Audits your code for 100+ rules covering accessibility, performance, and UX.
 
 **Use when:**
+
 - "Review my UI"
 - "Check accessibility"
 - "Audit design"
@@ -51,6 +91,7 @@ Review UI code for compliance with web interface best practices. Audits your cod
 - "Check my site against best practices"
 
 **Categories covered:**
+
 - Accessibility (aria-labels, semantic HTML, keyboard handlers)
 - Focus States (visible focus, focus-visible patterns)
 - Forms (autocomplete, validation, error handling)
@@ -68,6 +109,7 @@ Review UI code for compliance with web interface best practices. Audits your cod
 Generate comprehensive test cases for any feature, function, or component. Creates unit, integration, and edge case tests automatically.
 
 **Use when:**
+
 - "Generate tests for this function"
 - "Create test cases"
 - "Write tests for my component"
@@ -75,6 +117,7 @@ Generate comprehensive test cases for any feature, function, or component. Creat
 - "Generate unit tests"
 
 **Features:**
+
 - Supports React/TypeScript/JavaScript/Python
 - Creates proper test file structure
 - Includes mocking and setup
@@ -86,6 +129,7 @@ Generate comprehensive test cases for any feature, function, or component. Creat
 Execute and manage test suites with detailed reporting. Run tests, generate coverage reports, and analyze results.
 
 **Use when:**
+
 - "Run my tests"
 - "Check test coverage"
 - "Execute test suite"
@@ -93,6 +137,7 @@ Execute and manage test suites with detailed reporting. Run tests, generate cove
 - "Test my code"
 
 **Features:**
+
 - Auto-detects test frameworks (Jest, pytest, Mocha, Vitest)
 - Generates coverage reports
 - Provides detailed test results
@@ -104,6 +149,7 @@ Execute and manage test suites with detailed reporting. Run tests, generate cove
 shadcn/ui component library best practices and patterns for Next.js applications. Comprehensive guide for building modern UI components.
 
 **Use when:**
+
 - Setting up shadcn/ui in a new project
 - Building custom components with shadcn/ui
 - Implementing forms, data tables, or complex UI patterns
@@ -113,6 +159,7 @@ shadcn/ui component library best practices and patterns for Next.js applications
 - "Create a data table"
 
 **Features:**
+
 - Component composition patterns
 - Form handling with React Hook Form + Zod
 - Data table implementations
@@ -120,8 +167,6 @@ shadcn/ui component library best practices and patterns for Next.js applications
 - Performance optimization
 - Accessibility best practices
 - Next.js App Router integration
-
-
 
 ## Installation
 
@@ -155,15 +200,19 @@ pnpm dev
 Skills are automatically available once installed. The agent will use them when relevant tasks are detected.
 
 **Examples:**
+
 ```
 Review this React component for performance issues
 ```
+
 ```
 Help me optimize this Next.js page
 ```
+
 ```
 Generate tests for this function
 ```
+
 ```
 Run my tests with coverage
 ```
@@ -171,6 +220,7 @@ Run my tests with coverage
 ## Skill Structure
 
 Each skill contains:
+
 - `SKILL.md` - Instructions for the agent
 - `scripts/` - Helper scripts for automation (optional)
 - `references/` - Supporting documentation (optional)

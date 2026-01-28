@@ -14,6 +14,7 @@ Comprehensive best practices for using shadcn/ui component library in Next.js ap
 ## When to Apply
 
 Use these guidelines when:
+
 - Setting up shadcn/ui in a new project
 - Building custom components with shadcn/ui
 - Implementing forms, data tables, or complex UI patterns
@@ -23,11 +24,13 @@ Use these guidelines when:
 ## Quick Setup
 
 ### Installation
+
 ```bash
 npx shadcn-ui@latest init
 ```
 
 ### Essential Components
+
 ```bash
 # Core UI components
 npx shadcn-ui@latest add button card input label
@@ -39,6 +42,7 @@ npx shadcn-ui@latest add table data-table pagination
 ## Core Principles
 
 ### 1. Component Priority Hierarchy
+
 **ALWAYS use this order when building UI:**
 
 1. **shadcn/ui components first** - `<Button />`, `<Input />`, `<Card />`
@@ -47,27 +51,30 @@ npx shadcn-ui@latest add table data-table pagination
 
 ```tsx
 // ✅ PRIORITY 1: Use shadcn components
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 // ✅ PRIORITY 2: Custom wrappers of shadcn
-import { SubmitButton } from "@/components/submit-button" // wraps <Button />
+import { SubmitButton } from "@/components/submit-button"; // wraps <Button />
 
 // ❌ PRIORITY 3: Avoid native HTML when shadcn exists
 // <button> <input> - use shadcn equivalents instead
 ```
 
 ### 2. Component Composition
+
 - **Prefer composition over configuration**
 - **Use compound components for complex UI**
 - **Leverage Radix UI primitives**
 
 ### 3. Customization Strategy
+
 - **Modify components in `/components/ui/`**
 - **Use CSS variables for theming**
 - **Extend with custom variants**
 
 ### 4. Performance Patterns
+
 - **Tree-shake unused components**
 - **Use dynamic imports for heavy components**
 - **Optimize bundle size with selective imports**
@@ -77,12 +84,13 @@ import { SubmitButton } from "@/components/submit-button" // wraps <Button />
 ### Component Selection Priority
 
 #### ✅ ALWAYS: Use shadcn/ui First
+
 ```tsx
 // Use shadcn components for all UI elements
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 function LoginForm() {
   return (
@@ -96,31 +104,37 @@ function LoginForm() {
         <Button>Sign In</Button>
       </CardContent>
     </Card>
-  )
+  );
 }
 ```
 
 #### ✅ WHEN NEEDED: Create Custom Wrappers
+
 ```tsx
 // Extend shadcn components with custom logic
-import { Button } from "@/components/ui/button"
-import { Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface SubmitButtonProps extends React.ComponentProps<typeof Button> {
-  isLoading?: boolean
+  isLoading?: boolean;
 }
 
-export function SubmitButton({ isLoading, children, ...props }: SubmitButtonProps) {
+export function SubmitButton({
+  isLoading,
+  children,
+  ...props
+}: SubmitButtonProps) {
   return (
     <Button disabled={isLoading} {...props}>
       {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       {children}
     </Button>
-  )
+  );
 }
 ```
 
 #### ❌ AVOID: Native HTML When shadcn Exists
+
 ```tsx
 // DON'T use native HTML
 <button className="px-4 py-2 bg-blue-500">Click me</button>
@@ -136,6 +150,7 @@ export function SubmitButton({ isLoading, children, ...props }: SubmitButtonProp
 ### Component Architecture
 
 #### ✅ DO: Use Compound Components
+
 ```tsx
 <Dialog>
   <DialogTrigger asChild>
@@ -151,9 +166,10 @@ export function SubmitButton({ isLoading, children, ...props }: SubmitButtonProp
 ```
 
 #### ❌ DON'T: Prop Drilling
+
 ```tsx
 // Avoid complex prop interfaces
-<Dialog 
+<Dialog
   trigger={<Button>Edit</Button>}
   title="Edit profile"
   content={<Form />}
@@ -165,19 +181,20 @@ export function SubmitButton({ isLoading, children, ...props }: SubmitButtonProp
 ### Form Patterns
 
 #### ✅ DO: Use React Hook Form + Zod
+
 ```tsx
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
-})
+});
 
 export function ProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-  })
+  });
 
   return (
     <Form {...form}>
@@ -197,32 +214,34 @@ export function ProfileForm() {
         />
       </form>
     </Form>
-  )
+  );
 }
 ```
 
 ### Data Tables
 
 #### ✅ DO: Use TanStack Table
+
 ```tsx
-import { DataTable } from "@/components/ui/data-table"
-import { columns } from "./columns"
+import { DataTable } from "@/components/ui/data-table";
+import { columns } from "./columns";
 
 export function PaymentsTable() {
   return (
-    <DataTable 
-      columns={columns} 
+    <DataTable
+      columns={columns}
       data={payments}
       searchKey="email"
       searchPlaceholder="Filter emails..."
     />
-  )
+  );
 }
 ```
 
 ### Theme Customization
 
 #### ✅ DO: Use CSS Variables
+
 ```css
 /* globals.css */
 :root {
@@ -239,6 +258,7 @@ export function PaymentsTable() {
 ```
 
 #### ✅ DO: Extend Component Variants
+
 ```tsx
 // components/ui/button.tsx
 const buttonVariants = cva(
@@ -247,18 +267,20 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         // Add custom variants
         gradient: "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
       },
     },
   }
-)
+);
 ```
 
 ### Accessibility
 
 #### ✅ DO: Leverage Built-in A11y
+
 ```tsx
 // shadcn/ui components include ARIA attributes
 <AlertDialog>
@@ -283,20 +305,22 @@ const buttonVariants = cva(
 ### Performance Optimization
 
 #### ✅ DO: Dynamic Imports for Heavy Components
-```tsx
-import dynamic from 'next/dynamic'
 
-const DataTable = dynamic(() => import('@/components/ui/data-table'), {
+```tsx
+import dynamic from "next/dynamic";
+
+const DataTable = dynamic(() => import("@/components/ui/data-table"), {
   loading: () => <TableSkeleton />,
-  ssr: false
-})
+  ssr: false,
+});
 ```
 
 #### ✅ DO: Selective Component Imports
+
 ```tsx
 // Import only what you need
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 // Don't import entire library
 // import * from "@/components/ui"
@@ -305,8 +329,9 @@ import { Input } from "@/components/ui/input"
 ## Common Patterns
 
 ### Loading States
+
 ```tsx
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 
 function CardSkeleton() {
   return (
@@ -317,14 +342,15 @@ function CardSkeleton() {
         <Skeleton className="h-4 w-[200px]" />
       </div>
     </div>
-  )
+  );
 }
 ```
 
 ### Error Handling
+
 ```tsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 function ErrorAlert({ error }: { error: string }) {
   return (
@@ -333,13 +359,14 @@ function ErrorAlert({ error }: { error: string }) {
       <AlertTitle>Error</AlertTitle>
       <AlertDescription>{error}</AlertDescription>
     </Alert>
-  )
+  );
 }
 ```
 
 ### Command Palette
+
 ```tsx
-import { Command } from "@/components/ui/command"
+import { Command } from "@/components/ui/command";
 
 function CommandPalette() {
   return (
@@ -354,21 +381,22 @@ function CommandPalette() {
         </CommandGroup>
       </CommandList>
     </Command>
-  )
+  );
 }
 ```
 
 ## Integration with Next.js
 
 ### App Router Setup
+
 ```tsx
 // app/layout.tsx
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -383,15 +411,16 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
 ```
 
 ### Server Components
+
 ```tsx
 // app/dashboard/page.tsx
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Dashboard() {
   return (
@@ -405,13 +434,14 @@ export default function Dashboard() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
 ```
 
 ## Common Anti-Patterns
 
 ### ❌ DON'T: Use Native HTML When shadcn Exists
+
 ```tsx
 // Bad - using native elements
 <button onClick={handleClick}>Submit</button>
@@ -427,6 +457,7 @@ export default function Dashboard() {
 ```
 
 ### ❌ DON'T: Override Core Styles Directly
+
 ```tsx
 // Avoid inline styles that break theming
 <Button style={{ backgroundColor: '#ff0000' }}>
@@ -440,23 +471,26 @@ export default function Dashboard() {
 ```
 
 ### ❌ DON'T: Ignore TypeScript Types
+
 ```tsx
 // Use proper types
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "destructive" | "outline"
+  variant?: "default" | "destructive" | "outline";
 }
 ```
 
 ### ❌ DON'T: Mix UI Libraries
+
 ```tsx
 // Don't mix shadcn/ui with other component libraries
 // Choose one and stick with it for consistency
 ```
 
 ### ❌ DON'T: Skip Component Wrappers for Business Logic
+
 ```tsx
 // Bad - business logic in every usage
-<Button 
+<Button
   onClick={() => {
     setLoading(true)
     submitForm().finally(() => setLoading(false))
@@ -482,6 +516,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 4. **TypeScript errors**: Update component types after customization
 
 ### Debug Commands
+
 ```bash
 # Check installed components
 npx shadcn-ui@latest list

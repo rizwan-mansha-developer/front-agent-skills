@@ -22,27 +22,32 @@ bash /mnt/skills/user/test-runner/scripts/run-tests.sh [test_pattern] [options]
 ```
 
 **Arguments:**
+
 - `test_pattern` - Test file pattern or specific test (defaults to all tests)
 - `options` - Additional options: --coverage, --watch, --verbose
 
 **Examples:**
 
 Run all tests with coverage:
+
 ```bash
 bash /mnt/skills/user/test-runner/scripts/run-tests.sh "*" --coverage
 ```
 
 Run specific test file:
+
 ```bash
 bash /mnt/skills/user/test-runner/scripts/run-tests.sh "Button.test.tsx"
 ```
 
 Run tests in watch mode:
+
 ```bash
 bash /mnt/skills/user/test-runner/scripts/run-tests.sh "*" --watch
 ```
 
 Run tests with verbose output:
+
 ```bash
 bash /mnt/skills/user/test-runner/scripts/run-tests.sh "api/*.test.js" --verbose
 ```
@@ -81,6 +86,7 @@ bash /mnt/skills/user/test-runner/scripts/run-tests.sh "api/*.test.js" --verbose
 ⏱️ Execution time: **{execution_time}**
 
 **Coverage Report:**
+
 - Lines: {coverage.lines}%
 - Functions: {coverage.functions}%
 - Branches: {coverage.branches}%
@@ -90,6 +96,7 @@ bash /mnt/skills/user/test-runner/scripts/run-tests.sh "api/*.test.js" --verbose
 {failed_tests_list}
 
 **Recommendations:**
+
 - Increase test coverage for uncovered lines
 - Fix failing tests before deployment
 - Consider adding edge case tests

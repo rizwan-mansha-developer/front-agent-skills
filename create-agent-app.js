@@ -1,67 +1,82 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+const { execSync } = require("child_process");
+const fs = require("fs");
+const path = require("path");
 
-const projectName = process.argv[2] || 'my-app';
+const projectName = process.argv[2] || "my-app";
 
 console.log(`🚀 Creating Next.js project with agent skills: ${projectName}`);
 
 // Create Next.js app with TypeScript and Tailwind
-console.log('📦 Installing Next.js with TypeScript and Tailwind...');
-execSync(`npx create-next-app@latest ${projectName} --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"`, { stdio: 'inherit' });
+console.log("📦 Installing Next.js with TypeScript and Tailwind...");
+execSync(
+  `npx create-next-app@latest ${projectName} --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"`,
+  { stdio: "inherit" }
+);
 
 // Navigate to project directory
 process.chdir(projectName);
 
 // Install shadcn/ui
-console.log('🎨 Setting up shadcn/ui...');
-execSync('npx shadcn-ui@latest init -d', { stdio: 'inherit' });
+console.log("🎨 Setting up shadcn/ui...");
+execSync("npx shadcn-ui@latest init -d", { stdio: "inherit" });
 
 // Install essential shadcn components
-console.log('🧩 Installing essential shadcn components...');
+console.log("🧩 Installing essential shadcn components...");
 const components = [
-    'button', 'card', 'input', 'label', 'form', 
-    'select', 'textarea', 'checkbox', 'dialog', 
-    'sheet', 'popover', 'dropdown-menu', 'table', 
-    'alert', 'skeleton', 'command'
+  "button",
+  "card",
+  "input",
+  "label",
+  "form",
+  "select",
+  "textarea",
+  "checkbox",
+  "dialog",
+  "sheet",
+  "popover",
+  "dropdown-menu",
+  "table",
+  "alert",
+  "skeleton",
+  "command",
 ];
 
 components.forEach(component => {
-    try {
-        execSync(`npx shadcn-ui@latest add ${component} -y`, { stdio: 'inherit' });
-    } catch (error) {
-        console.log(`⚠️  Could not install ${component}, continuing...`);
-    }
+  try {
+    execSync(`npx shadcn-ui@latest add ${component} -y`, { stdio: "inherit" });
+  } catch (error) {
+    console.log(`⚠️  Could not install ${component}, continuing...`);
+  }
 });
 
 // Install additional dependencies
-console.log('📚 Installing additional dependencies...');
+console.log("📚 Installing additional dependencies...");
 const dependencies = [
-    'react-hook-form',
-    '@hookform/resolvers',
-    'zod',
-    '@tanstack/react-table',
-    'lucide-react',
-    'next-themes'
+  "react-hook-form",
+  "@hookform/resolvers",
+  "zod",
+  "@tanstack/react-table",
+  "lucide-react",
+  "next-themes",
 ];
 
-execSync(`npm install ${dependencies.join(' ')}`, { stdio: 'inherit' });
+execSync(`npm install ${dependencies.join(" ")}`, { stdio: "inherit" });
 
 // Create project structure
-console.log('📁 Setting up project structure...');
+console.log("📁 Setting up project structure...");
 
 const directories = [
-    'src/components/ui',
-    'src/lib',
-    'src/hooks',
-    'src/types',
-    'src/utils'
+  "src/components/ui",
+  "src/lib",
+  "src/hooks",
+  "src/types",
+  "src/utils",
 ];
 
 directories.forEach(dir => {
-    fs.mkdirSync(dir, { recursive: true });
+  fs.mkdirSync(dir, { recursive: true });
 });
 
 // Create theme provider
@@ -75,7 +90,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }`;
 
-fs.writeFileSync('src/components/theme-provider.tsx', themeProvider);
+fs.writeFileSync("src/components/theme-provider.tsx", themeProvider);
 
 // Update layout.tsx
 const layout = `import type { Metadata } from "next"
@@ -111,7 +126,7 @@ export default function RootLayout({
   )
 }`;
 
-fs.writeFileSync('src/app/layout.tsx', layout);
+fs.writeFileSync("src/app/layout.tsx", layout);
 
 // Create sample page with shadcn components
 const samplePage = `import { Button } from "@/components/ui/button"
@@ -150,9 +165,9 @@ export default function Home() {
   )
 }`;
 
-fs.writeFileSync('src/app/page.tsx', samplePage);
+fs.writeFileSync("src/app/page.tsx", samplePage);
 
-console.log('✅ Project setup complete!');
+console.log("✅ Project setup complete!");
 console.log(`
 🎉 ${projectName} is ready!
 

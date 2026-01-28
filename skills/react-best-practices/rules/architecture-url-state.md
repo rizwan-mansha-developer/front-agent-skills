@@ -16,9 +16,9 @@ Store UI state like active tabs, filters, and pagination in URL query parameters
 ```tsx
 // Local state - not shareable, no browser navigation
 function UserDashboard() {
-  const [activeTab, setActiveTab] = useState('overview')
-  const [filters, setFilters] = useState({ role: 'all', status: 'active' })
-  const [selectedUser, setSelectedUser] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState("overview");
+  const [filters, setFilters] = useState({ role: "all", status: "active" });
+  const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
   return (
     <div>
@@ -29,10 +29,10 @@ function UserDashboard() {
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
       </Tabs>
-      
+
       {selectedUser && <UserModal userId={selectedUser} />}
     </div>
-  )
+  );
 }
 ```
 
@@ -40,54 +40,60 @@ function UserDashboard() {
 
 ```tsx
 // hooks/useUrlState.ts
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 export function useUrlState() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const updateUrl = useCallback((updates: Record<string, string | null>) => {
-    const params = new URLSearchParams(searchParams.toString())
-    
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value === null || value === '' || value === 'all') {
-        params.delete(key)
-      } else {
-        params.set(key, value)
-      }
-    })
+  const updateUrl = useCallback(
+    (updates: Record<string, string | null>) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-    const queryString = params.toString()
-    const url = queryString ? `?${queryString}` : ''
-    
-    router.push(url, { scroll: false })
-  }, [router, searchParams])
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === null || value === "" || value === "all") {
+          params.delete(key);
+        } else {
+          params.set(key, value);
+        }
+      });
 
-  const getParam = useCallback((key: string, defaultValue = '') => {
-    return searchParams.get(key) ?? defaultValue
-  }, [searchParams])
+      const queryString = params.toString();
+      const url = queryString ? `?${queryString}` : "";
 
-  return { updateUrl, getParam, searchParams }
+      router.push(url, { scroll: false });
+    },
+    [router, searchParams]
+  );
+
+  const getParam = useCallback(
+    (key: string, defaultValue = "") => {
+      return searchParams.get(key) ?? defaultValue;
+    },
+    [searchParams]
+  );
+
+  return { updateUrl, getParam, searchParams };
 }
 
 // components/UserDashboard.tsx
 function UserDashboard() {
-  const { updateUrl, getParam } = useUrlState()
-  
-  const activeTab = getParam('tab', 'overview')
-  const roleFilter = getParam('role', 'all')
-  const statusFilter = getParam('status', 'all')
-  const search = getParam('search')
-  const page = parseInt(getParam('page', '1'))
+  const { updateUrl, getParam } = useUrlState();
+
+  const activeTab = getParam("tab", "overview");
+  const roleFilter = getParam("role", "all");
+  const statusFilter = getParam("status", "all");
+  const search = getParam("search");
+  const page = parseInt(getParam("page", "1"));
 
   const handleTabChange = (tab: string) => {
-    updateUrl({ tab: tab === 'overview' ? null : tab })
-  }
+    updateUrl({ tab: tab === "overview" ? null : tab });
+  };
 
   const handleFilterChange = (filters: Record<string, string>) => {
-    updateUrl({ ...filters, page: null }) // Reset page when filtering
-  }
+    updateUrl({ ...filters, page: null }); // Reset page when filtering
+  };
 
   return (
     <div className="space-y-6">
@@ -113,7 +119,7 @@ function UserDashboard() {
           <UserList
             filters={{ role: roleFilter, status: statusFilter, search }}
             page={page}
-            onPageChange={(page) => updateUrl({ page: page.toString() })}
+            onPageChange={page => updateUrl({ page: page.toString() })}
           />
         </TabsContent>
 
@@ -126,43 +132,48 @@ function UserDashboard() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 
 // components/UserFilters.tsx
 interface UserFiltersProps {
-  role: string
-  status: string
-  search: string
-  onFilterChange: (filters: Record<string, string>) => void
+  role: string;
+  status: string;
+  search: string;
+  onFilterChange: (filters: Record<string, string>) => void;
 }
 
-function UserFilters({ role, status, search, onFilterChange }: UserFiltersProps) {
+function UserFilters({
+  role,
+  status,
+  search,
+  onFilterChange,
+}: UserFiltersProps) {
   return (
-    <div className="flex gap-4 p-4 bg-gray-50 rounded-lg">
+    <div className="flex gap-4 rounded-lg bg-gray-50 p-4">
       <input
         type="text"
         placeholder="Search users..."
         value={search}
-        onChange={(e) => onFilterChange({ search: e.target.value })}
-        className="px-3 py-2 border rounded-md"
+        onChange={e => onFilterChange({ search: e.target.value })}
+        className="rounded-md border px-3 py-2"
       />
-      
+
       <select
         value={role}
-        onChange={(e) => onFilterChange({ role: e.target.value })}
-        className="px-3 py-2 border rounded-md"
+        onChange={e => onFilterChange({ role: e.target.value })}
+        className="rounded-md border px-3 py-2"
       >
         <option value="all">All Roles</option>
         <option value="admin">Admin</option>
         <option value="user">User</option>
         <option value="moderator">Moderator</option>
       </select>
-      
+
       <select
         value={status}
-        onChange={(e) => onFilterChange({ status: e.target.value })}
-        className="px-3 py-2 border rounded-md"
+        onChange={e => onFilterChange({ status: e.target.value })}
+        className="rounded-md border px-3 py-2"
       >
         <option value="all">All Status</option>
         <option value="active">Active</option>
@@ -170,7 +181,7 @@ function UserFilters({ role, status, search, onFilterChange }: UserFiltersProps)
         <option value="pending">Pending</option>
       </select>
     </div>
-  )
+  );
 }
 ```
 
@@ -184,29 +195,29 @@ export default function UsersPage() {
       <h1>Users Management</h1>
       <UserDashboard />
     </div>
-  )
+  );
 }
 
 // app/users/[id]/page.tsx - View/Edit record
 interface UserPageProps {
-  params: { id: string }
-  searchParams: { mode?: 'view' | 'edit' }
+  params: { id: string };
+  searchParams: { mode?: "view" | "edit" };
 }
 
 export default function UserPage({ params, searchParams }: UserPageProps) {
-  const mode = searchParams.mode ?? 'view'
-  
+  const mode = searchParams.mode ?? "view";
+
   return (
     <div>
       <UserBreadcrumb userId={params.id} mode={mode} />
-      
-      {mode === 'edit' ? (
+
+      {mode === "edit" ? (
         <UserEditForm userId={params.id} />
       ) : (
         <UserProfile userId={params.id} />
       )}
     </div>
-  )
+  );
 }
 
 // app/users/new/page.tsx - Create new record
@@ -216,37 +227,39 @@ export default function NewUserPage() {
       <UserBreadcrumb mode="create" />
       <UserCreateForm />
     </div>
-  )
+  );
 }
 
 // components/UserBreadcrumb.tsx
 interface UserBreadcrumbProps {
-  userId?: string
-  mode: 'view' | 'edit' | 'create'
+  userId?: string;
+  mode: "view" | "edit" | "create";
 }
 
 function UserBreadcrumb({ userId, mode }: UserBreadcrumbProps) {
-  const { data: user } = useUser(userId)
-  
+  const { data: user } = useUser(userId);
+
   return (
-    <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
+    <nav className="mb-6 flex items-center space-x-2 text-sm text-gray-600">
       <Link href="/users" className="hover:text-blue-600">
         Users
       </Link>
       <span>/</span>
-      
-      {mode === 'create' ? (
+
+      {mode === "create" ? (
         <span className="text-gray-900">New User</span>
       ) : (
         <>
-          <Link 
+          <Link
             href={`/users/${userId}`}
-            className={mode === 'view' ? 'text-gray-900' : 'hover:text-blue-600'}
+            className={
+              mode === "view" ? "text-gray-900" : "hover:text-blue-600"
+            }
           >
-            {user?.name ?? 'Loading...'}
+            {user?.name ?? "Loading..."}
           </Link>
-          
-          {mode === 'edit' && (
+
+          {mode === "edit" && (
             <>
               <span>/</span>
               <span className="text-gray-900">Edit</span>
@@ -255,33 +268,33 @@ function UserBreadcrumb({ userId, mode }: UserBreadcrumbProps) {
         </>
       )}
     </nav>
-  )
+  );
 }
 
 // components/UserList.tsx - Navigate to records
 function UserList({ filters, page, onPageChange }: UserListProps) {
-  const { data: users } = useUsers({ ...filters, page })
+  const { data: users } = useUsers({ ...filters, page });
 
   return (
     <div className="space-y-4">
       {users?.data.map(user => (
-        <div key={user.id} className="border rounded-lg p-4">
+        <div key={user.id} className="rounded-lg border p-4">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-semibold">{user.name}</h3>
               <p className="text-gray-600">{user.email}</p>
             </div>
-            
+
             <div className="flex gap-2">
               <Link
                 href={`/users/${user.id}`}
-                className="px-3 py-1 text-blue-600 border border-blue-600 rounded hover:bg-blue-50"
+                className="rounded border border-blue-600 px-3 py-1 text-blue-600 hover:bg-blue-50"
               >
                 View
               </Link>
               <Link
                 href={`/users/${user.id}?mode=edit`}
-                className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"
               >
                 Edit
               </Link>
@@ -289,14 +302,14 @@ function UserList({ filters, page, onPageChange }: UserListProps) {
           </div>
         </div>
       ))}
-      
+
       <Pagination
         currentPage={page}
         totalPages={users?.totalPages ?? 1}
         onPageChange={onPageChange}
       />
     </div>
-  )
+  );
 }
 ```
 
@@ -307,84 +320,96 @@ function UserList({ filters, page, onPageChange }: UserListProps) {
 export function useAdvancedUrlState<T extends Record<string, any>>(
   defaultState: T,
   options: {
-    serialize?: (value: any) => string
-    deserialize?: (value: string) => any
-    debounceMs?: number
+    serialize?: (value: any) => string;
+    deserialize?: (value: string) => any;
+    debounceMs?: number;
   } = {}
 ) {
-  const { updateUrl, getParam } = useUrlState()
-  const { serialize = JSON.stringify, deserialize = JSON.parse, debounceMs = 300 } = options
+  const { updateUrl, getParam } = useUrlState();
+  const {
+    serialize = JSON.stringify,
+    deserialize = JSON.parse,
+    debounceMs = 300,
+  } = options;
 
-  const [debouncedUpdate] = useDebouncedCallback(updateUrl, debounceMs)
+  const [debouncedUpdate] = useDebouncedCallback(updateUrl, debounceMs);
 
   const state = useMemo(() => {
-    const result = { ...defaultState }
-    
+    const result = { ...defaultState };
+
     Object.keys(defaultState).forEach(key => {
-      const urlValue = getParam(key)
+      const urlValue = getParam(key);
       if (urlValue) {
         try {
-          result[key] = deserialize(urlValue)
+          result[key] = deserialize(urlValue);
         } catch {
-          result[key] = urlValue
+          result[key] = urlValue;
         }
       }
-    })
-    
-    return result
-  }, [getParam, defaultState, deserialize])
+    });
 
-  const setState = useCallback((updates: Partial<T>) => {
-    const urlUpdates: Record<string, string | null> = {}
-    
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value === defaultState[key]) {
-        urlUpdates[key] = null
-      } else {
-        urlUpdates[key] = typeof value === 'string' ? value : serialize(value)
-      }
-    })
-    
-    debouncedUpdate(urlUpdates)
-  }, [defaultState, serialize, debouncedUpdate])
+    return result;
+  }, [getParam, defaultState, deserialize]);
 
-  return [state, setState] as const
+  const setState = useCallback(
+    (updates: Partial<T>) => {
+      const urlUpdates: Record<string, string | null> = {};
+
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === defaultState[key]) {
+          urlUpdates[key] = null;
+        } else {
+          urlUpdates[key] =
+            typeof value === "string" ? value : serialize(value);
+        }
+      });
+
+      debouncedUpdate(urlUpdates);
+    },
+    [defaultState, serialize, debouncedUpdate]
+  );
+
+  return [state, setState] as const;
 }
 
 // Usage with complex state
 function AdvancedFilters() {
   const [filters, setFilters] = useAdvancedUrlState({
-    search: '',
+    search: "",
     roles: [] as string[],
-    dateRange: { start: null, end: null } as { start: Date | null; end: Date | null },
-    sortBy: 'name',
-    sortOrder: 'asc' as 'asc' | 'desc'
-  })
+    dateRange: { start: null, end: null } as {
+      start: Date | null;
+      end: Date | null;
+    },
+    sortBy: "name",
+    sortOrder: "asc" as "asc" | "desc",
+  });
 
   return (
     <div className="space-y-4">
       <input
         value={filters.search}
-        onChange={(e) => setFilters({ search: e.target.value })}
+        onChange={e => setFilters({ search: e.target.value })}
         placeholder="Search..."
       />
-      
+
       <MultiSelect
         value={filters.roles}
-        onChange={(roles) => setFilters({ roles })}
-        options={['admin', 'user', 'moderator']}
+        onChange={roles => setFilters({ roles })}
+        options={["admin", "user", "moderator"]}
       />
-      
+
       <DateRangePicker
         value={filters.dateRange}
-        onChange={(dateRange) => setFilters({ dateRange })}
+        onChange={dateRange => setFilters({ dateRange })}
       />
     </div>
-  )
+  );
 }
 ```
 
 This pattern provides:
+
 - **Shareable URLs** - users can bookmark and share filtered views
 - **Browser navigation** - back/forward buttons work correctly
 - **SEO benefits** - search engines can index different states

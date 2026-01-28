@@ -24,25 +24,30 @@ npm run dev
 ## What's Included
 
 ### Core Stack
+
 - **Next.js 16** with App Router
 - **TypeScript** for type safety
 - **Tailwind CSS** for styling
 - **ESLint** for code quality
 
 ### UI Components
+
 - **shadcn/ui** component library
 - **Lucide React** icons
 - **next-themes** for dark mode
 
 ### Form Handling
+
 - **React Hook Form** for forms
 - **Zod** for validation
 - **@hookform/resolvers** for integration
 
 ### Data Tables
+
 - **@tanstack/react-table** for data tables
 
 ### Pre-installed Components
+
 - Button, Card, Input, Label
 - Form, Select, Textarea, Checkbox
 - Dialog, Sheet, Popover, Dropdown Menu
@@ -70,6 +75,7 @@ my-app/
 ## Agent Skills Integration
 
 The project is pre-configured to work with:
+
 - **React Best Practices** skill
 - **shadcn/ui Guidelines** skill
 - **Web Design Guidelines** skill

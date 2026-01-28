@@ -15,29 +15,27 @@ Use Tailwind CSS v4+ with global.css for design tokens and component composition
 
 ```tsx
 // Inline styles scattered throughout components
-function Button({ children, type = 'primary' }) {
+function Button({ children, type = "primary" }) {
   return (
     <button
-      className={`
-        px-4 py-2 rounded-md font-medium transition-colors
-        ${type === 'primary' 
-          ? 'bg-blue-600 text-white hover:bg-blue-700' 
-          : 'bg-gray-200 text-gray-900 hover:bg-gray-300'
-        }
-      `}
+      className={`rounded-md px-4 py-2 font-medium transition-colors ${
+        type === "primary"
+          ? "bg-blue-600 text-white hover:bg-blue-700"
+          : "bg-gray-200 text-gray-900 hover:bg-gray-300"
+      } `}
     >
       {children}
     </button>
-  )
+  );
 }
 
 // Repeated styles, no consistency
 function Card({ children }) {
   return (
-    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+    <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
       {children}
     </div>
-  )
+  );
 }
 ```
 
@@ -57,20 +55,20 @@ function Card({ children }) {
     --color-primary-600: #2563eb;
     --color-primary-700: #1d4ed8;
     --color-primary-900: #1e3a8a;
-    
+
     --color-gray-50: #f9fafb;
     --color-gray-100: #f3f4f6;
     --color-gray-500: #6b7280;
     --color-gray-900: #111827;
-    
+
     --color-success-500: #10b981;
     --color-error-500: #ef4444;
     --color-warning-500: #f59e0b;
-    
+
     /* Typography */
-    --font-sans: 'Inter', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+
     /* Spacing */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
@@ -78,24 +76,24 @@ function Card({ children }) {
     --spacing-lg: 1.5rem;
     --spacing-xl: 2rem;
     --spacing-2xl: 3rem;
-    
+
     /* Border radius */
     --radius-sm: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    
+
     /* Transitions */
     --transition-fast: 150ms ease;
     --transition-normal: 200ms ease;
     --transition-slow: 300ms ease;
   }
-  
+
   /* Dark mode tokens */
   @media (prefers-color-scheme: dark) {
     :root {
@@ -105,14 +103,14 @@ function Card({ children }) {
       --color-gray-900: #f9fafb;
     }
   }
-  
+
   /* Base styles */
   body {
     font-family: var(--font-sans);
     color: rgb(var(--color-gray-900));
     background-color: rgb(var(--color-gray-50));
   }
-  
+
   /* Focus styles */
   *:focus-visible {
     outline: 2px solid rgb(var(--color-primary-500));
@@ -124,86 +122,86 @@ function Card({ children }) {
 @layer components {
   /* Button variants */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50;
   }
-  
+
   .btn-primary {
-    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+    @apply btn bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 text-white;
   }
-  
+
   .btn-secondary {
     @apply btn bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
   }
-  
+
   .btn-outline {
-    @apply btn border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-primary-500;
+    @apply btn focus:ring-primary-500 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
   }
-  
+
   .btn-ghost {
-    @apply btn text-gray-700 hover:bg-gray-100 focus:ring-primary-500;
+    @apply btn focus:ring-primary-500 text-gray-700 hover:bg-gray-100;
   }
-  
+
   .btn-sm {
     @apply px-3 py-1.5 text-xs;
   }
-  
+
   .btn-lg {
     @apply px-6 py-3 text-base;
   }
-  
+
   /* Card variants */
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200;
+    @apply rounded-lg border border-gray-200 bg-white shadow-sm;
   }
-  
+
   .card-elevated {
     @apply card shadow-md;
   }
-  
+
   .card-interactive {
-    @apply card hover:shadow-md transition-shadow cursor-pointer;
+    @apply card cursor-pointer transition-shadow hover:shadow-md;
   }
-  
+
   /* Form elements */
   .form-input {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500;
+    @apply focus:ring-primary-500 focus:border-primary-500 block w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none;
   }
-  
+
   .form-input-error {
-    @apply form-input border-red-300 focus:ring-red-500 focus:border-red-500;
+    @apply form-input border-red-300 focus:border-red-500 focus:ring-red-500;
   }
-  
+
   .form-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
+    @apply mb-1 block text-sm font-medium text-gray-700;
   }
-  
+
   .form-error {
-    @apply text-sm text-red-600 mt-1;
+    @apply mt-1 text-sm text-red-600;
   }
-  
+
   /* Layout utilities */
   .container-responsive {
     @apply mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
+
   .stack {
     @apply flex flex-col gap-4;
   }
-  
+
   .stack-sm {
     @apply flex flex-col gap-2;
   }
-  
+
   .stack-lg {
     @apply flex flex-col gap-6;
   }
-  
+
   .cluster {
     @apply flex flex-wrap gap-2;
   }
-  
+
   .sidebar-layout {
-    @apply grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-6;
+    @apply grid grid-cols-1 gap-6 lg:grid-cols-[250px_1fr];
   }
 }
 
@@ -212,12 +210,12 @@ function Card({ children }) {
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -228,34 +226,35 @@ function Card({ children }) {
 
 ```tsx
 // components/ui/Button.tsx
-import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-const buttonVariants = cva('btn', {
+const buttonVariants = cva("btn", {
   variants: {
     variant: {
-      primary: 'btn-primary',
-      secondary: 'btn-secondary',
-      outline: 'btn-outline',
-      ghost: 'btn-ghost',
-      destructive: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500'
+      primary: "btn-primary",
+      secondary: "btn-secondary",
+      outline: "btn-outline",
+      ghost: "btn-ghost",
+      destructive: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
     },
     size: {
-      sm: 'btn-sm',
-      md: '',
-      lg: 'btn-lg'
-    }
+      sm: "btn-sm",
+      md: "",
+      lg: "btn-lg",
+    },
   },
   defaultVariants: {
-    variant: 'primary',
-    size: 'md'
-  }
-})
+    variant: "primary",
+    size: "md",
+  },
+});
 
 interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  loading?: boolean
+  loading?: boolean;
 }
 
 export function Button({
@@ -274,42 +273,58 @@ export function Button({
       {...props}
     >
       {loading && (
-        <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-          <path className="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        <svg
+          className="-ml-1 mr-2 h-4 w-4 animate-spin"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          />
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
         </svg>
       )}
       {children}
     </button>
-  )
+  );
 }
 
 // components/ui/Card.tsx
-import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-const cardVariants = cva('card', {
+const cardVariants = cva("card", {
   variants: {
     variant: {
-      default: '',
-      elevated: 'card-elevated',
-      interactive: 'card-interactive'
+      default: "",
+      elevated: "card-elevated",
+      interactive: "card-interactive",
     },
     padding: {
-      none: 'p-0',
-      sm: 'p-4',
-      md: 'p-6',
-      lg: 'p-8'
-    }
+      none: "p-0",
+      sm: "p-4",
+      md: "p-6",
+      lg: "p-8",
+    },
   },
   defaultVariants: {
-    variant: 'default',
-    padding: 'md'
-  }
-})
+    variant: "default",
+    padding: "md",
+  },
+});
 
 interface CardProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof cardVariants> {}
 
 export function Card({ className, variant, padding, ...props }: CardProps) {
@@ -318,39 +333,49 @@ export function Card({ className, variant, padding, ...props }: CardProps) {
       className={cn(cardVariants({ variant, padding }), className)}
       {...props}
     />
-  )
+  );
 }
 
-export function CardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+export function CardHeader({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('flex flex-col space-y-1.5 p-6', className)}
+      className={cn("flex flex-col space-y-1.5 p-6", className)}
       {...props}
     />
-  )
+  );
 }
 
-export function CardTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+export function CardTitle({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn('text-lg font-semibold leading-none tracking-tight', className)}
+      className={cn(
+        "text-lg font-semibold leading-none tracking-tight",
+        className
+      )}
       {...props}
     />
-  )
+  );
 }
 
-export function CardContent({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={cn('p-6 pt-0', className)} {...props} />
-  )
+export function CardContent({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("p-6 pt-0", className)} {...props} />;
 }
 
 // components/ui/Input.tsx
-import { forwardRef } from 'react'
-import { cn } from '@/lib/utils'
+import { forwardRef } from "react";
+import { cn } from "@/lib/utils";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  error?: boolean
+  error?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -358,89 +383,87 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <input
         type={type}
-        className={cn(
-          'form-input',
-          error && 'form-input-error',
-          className
-        )}
+        className={cn("form-input", error && "form-input-error", className)}
         ref={ref}
         {...props}
       />
-    )
+    );
   }
-)
+);
 
-Input.displayName = 'Input'
+Input.displayName = "Input";
 
 // Layout components
 // components/layout/Container.tsx
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
+  size?: "sm" | "md" | "lg" | "xl" | "full";
 }
 
-export function Container({ className, size = 'lg', ...props }: ContainerProps) {
+export function Container({
+  className,
+  size = "lg",
+  ...props
+}: ContainerProps) {
   return (
     <div
       className={cn(
-        'container-responsive',
+        "container-responsive",
         {
-          'max-w-2xl': size === 'sm',
-          'max-w-4xl': size === 'md',
-          'max-w-6xl': size === 'lg',
-          'max-w-7xl': size === 'xl',
-          'max-w-none': size === 'full'
+          "max-w-2xl": size === "sm",
+          "max-w-4xl": size === "md",
+          "max-w-6xl": size === "lg",
+          "max-w-7xl": size === "xl",
+          "max-w-none": size === "full",
         },
         className
       )}
       {...props}
     />
-  )
+  );
 }
 
 // components/layout/Stack.tsx
 interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
-  gap?: 'sm' | 'md' | 'lg'
-  align?: 'start' | 'center' | 'end'
+  gap?: "sm" | "md" | "lg";
+  align?: "start" | "center" | "end";
 }
 
-export function Stack({ className, gap = 'md', align, ...props }: StackProps) {
+export function Stack({ className, gap = "md", align, ...props }: StackProps) {
   return (
     <div
       className={cn(
-        'flex flex-col',
+        "flex flex-col",
         {
-          'gap-2': gap === 'sm',
-          'gap-4': gap === 'md',
-          'gap-6': gap === 'lg',
-          'items-start': align === 'start',
-          'items-center': align === 'center',
-          'items-end': align === 'end'
+          "gap-2": gap === "sm",
+          "gap-4": gap === "md",
+          "gap-6": gap === "lg",
+          "items-start": align === "start",
+          "items-center": align === "center",
+          "items-end": align === "end",
         },
         className
       )}
       {...props}
     />
-  )
+  );
 }
 
 // Usage examples
 // app/dashboard/page.tsx
-import { Container, Stack } from '@/components/layout'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
+import { Container, Stack } from "@/components/layout";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 
 export default function DashboardPage() {
   return (
     <Container>
       <Stack gap="lg">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-balance">Dashboard</h1>
-          <Button variant="primary">
-            New Project
-          </Button>
+          <h1 className="text-balance text-3xl font-bold">Dashboard</h1>
+          <Button variant="primary">New Project</Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Card variant="interactive">
             <CardHeader>
               <CardTitle>Total Users</CardTitle>
@@ -463,7 +486,7 @@ export default function DashboardPage() {
         </div>
       </Stack>
     </Container>
-  )
+  );
 }
 ```
 
@@ -474,41 +497,42 @@ export default function DashboardPage() {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         primary: {
-          50: 'rgb(var(--color-primary-50) / <alpha-value>)',
-          100: 'rgb(var(--color-primary-100) / <alpha-value>)',
-          500: 'rgb(var(--color-primary-500) / <alpha-value>)',
-          600: 'rgb(var(--color-primary-600) / <alpha-value>)',
-          700: 'rgb(var(--color-primary-700) / <alpha-value>)',
-          900: 'rgb(var(--color-primary-900) / <alpha-value>)',
-        }
+          50: "rgb(var(--color-primary-50) / <alpha-value>)",
+          100: "rgb(var(--color-primary-100) / <alpha-value>)",
+          500: "rgb(var(--color-primary-500) / <alpha-value>)",
+          600: "rgb(var(--color-primary-600) / <alpha-value>)",
+          700: "rgb(var(--color-primary-700) / <alpha-value>)",
+          900: "rgb(var(--color-primary-900) / <alpha-value>)",
+        },
       },
       fontFamily: {
-        sans: ['var(--font-sans)'],
-        mono: ['var(--font-mono)']
+        sans: ["var(--font-sans)"],
+        mono: ["var(--font-mono)"],
       },
       spacing: {
-        xs: 'var(--spacing-xs)',
-        sm: 'var(--spacing-sm)',
-        md: 'var(--spacing-md)',
-        lg: 'var(--spacing-lg)',
-        xl: 'var(--spacing-xl)',
-        '2xl': 'var(--spacing-2xl)'
-      }
-    }
+        xs: "var(--spacing-xs)",
+        sm: "var(--spacing-sm)",
+        md: "var(--spacing-md)",
+        lg: "var(--spacing-lg)",
+        xl: "var(--spacing-xl)",
+        "2xl": "var(--spacing-2xl)",
+      },
+    },
   },
-  plugins: []
-}
+  plugins: [],
+};
 ```
 
 This pattern provides:
+
 - **Design system consistency** - Centralized design tokens
 - **Component composition** - Reusable, composable UI components
 - **Performance optimization** - Efficient CSS with custom properties

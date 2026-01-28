@@ -16,22 +16,22 @@ Always wrap async components with Suspense boundaries and provide skeleton fallb
 ```tsx
 // Generic loading states - poor UX
 function UserDashboard() {
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetchUser().then(data => {
-      setUser(data)
-      setLoading(false)
-    })
-  }, [])
+      setUser(data);
+      setLoading(false);
+    });
+  }, []);
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div className="flex h-64 items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -40,7 +40,7 @@ function UserDashboard() {
       <UserStats user={user} />
       <RecentActivity user={user} />
     </div>
-  )
+  );
 }
 ```
 
@@ -51,194 +51,206 @@ function UserDashboard() {
 // components/ui/skeletons/UserProfileSkeleton.tsx
 export function UserProfileSkeleton() {
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6 animate-pulse">
+    <div className="animate-pulse rounded-lg border bg-white p-6 shadow-sm">
       <div className="flex items-start space-x-4">
         {/* Avatar skeleton */}
-        <div className="w-16 h-16 bg-gray-200 rounded-full flex-shrink-0"></div>
-        
-        <div className="flex-1 min-w-0">
+        <div className="h-16 w-16 flex-shrink-0 rounded-full bg-gray-200"></div>
+
+        <div className="min-w-0 flex-1">
           {/* Name skeleton */}
-          <div className="h-6 bg-gray-200 rounded w-32 mb-2"></div>
-          
+          <div className="mb-2 h-6 w-32 rounded bg-gray-200"></div>
+
           {/* Email skeleton */}
-          <div className="h-4 bg-gray-200 rounded w-48 mb-3"></div>
-          
+          <div className="mb-3 h-4 w-48 rounded bg-gray-200"></div>
+
           {/* Role badge skeleton */}
-          <div className="h-6 bg-gray-200 rounded w-20"></div>
+          <div className="h-6 w-20 rounded bg-gray-200"></div>
         </div>
-        
+
         {/* Actions skeleton */}
         <div className="flex space-x-2">
-          <div className="h-8 w-16 bg-gray-200 rounded"></div>
-          <div className="h-8 w-16 bg-gray-200 rounded"></div>
+          <div className="h-8 w-16 rounded bg-gray-200"></div>
+          <div className="h-8 w-16 rounded bg-gray-200"></div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // components/ui/skeletons/UserStatsSkeleton.tsx
 export function UserStatsSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
       {Array.from({ length: 3 }).map((_, i) => (
-        <div key={i} className="bg-white rounded-lg shadow-sm border p-6 animate-pulse">
+        <div
+          key={i}
+          className="animate-pulse rounded-lg border bg-white p-6 shadow-sm"
+        >
           <div className="flex items-center justify-between">
             <div>
-              <div className="h-4 bg-gray-200 rounded w-24 mb-2"></div>
-              <div className="h-8 bg-gray-200 rounded w-16"></div>
+              <div className="mb-2 h-4 w-24 rounded bg-gray-200"></div>
+              <div className="h-8 w-16 rounded bg-gray-200"></div>
             </div>
-            <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+            <div className="h-12 w-12 rounded-lg bg-gray-200"></div>
           </div>
         </div>
       ))}
     </div>
-  )
+  );
 }
 
 // components/ui/skeletons/RecentActivitySkeleton.tsx
 export function RecentActivitySkeleton() {
   return (
-    <div className="bg-white rounded-lg shadow-sm border">
-      <div className="p-6 border-b">
-        <div className="h-6 bg-gray-200 rounded w-32 animate-pulse"></div>
+    <div className="rounded-lg border bg-white shadow-sm">
+      <div className="border-b p-6">
+        <div className="h-6 w-32 animate-pulse rounded bg-gray-200"></div>
       </div>
       <div className="divide-y">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="p-4 flex items-center space-x-3 animate-pulse">
-            <div className="w-8 h-8 bg-gray-200 rounded-full flex-shrink-0"></div>
-            <div className="flex-1 min-w-0">
-              <div className="h-4 bg-gray-200 rounded w-3/4 mb-1"></div>
-              <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+          <div
+            key={i}
+            className="flex animate-pulse items-center space-x-3 p-4"
+          >
+            <div className="h-8 w-8 flex-shrink-0 rounded-full bg-gray-200"></div>
+            <div className="min-w-0 flex-1">
+              <div className="mb-1 h-4 w-3/4 rounded bg-gray-200"></div>
+              <div className="h-3 w-1/2 rounded bg-gray-200"></div>
             </div>
-            <div className="h-3 bg-gray-200 rounded w-16"></div>
+            <div className="h-3 w-16 rounded bg-gray-200"></div>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 // Actual components using TanStack Query with Suspense
 // features/users/components/UserProfile.tsx
-import { useSuspenseQuery } from '@tanstack/react-query'
-import { usersApi } from '@/lib/api/users'
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { usersApi } from "@/lib/api/users";
 
 function UserProfile({ userId }: { userId: string }) {
   const { data: user } = useSuspenseQuery({
-    queryKey: ['users', userId],
+    queryKey: ["users", userId],
     queryFn: () => usersApi.getUser(userId),
-  })
+  });
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6">
+    <div className="rounded-lg border bg-white p-6 shadow-sm">
       <div className="flex items-start space-x-4">
         <img
           src={user.avatar}
           alt={user.name}
-          className="w-16 h-16 rounded-full object-cover"
+          className="h-16 w-16 rounded-full object-cover"
         />
-        
-        <div className="flex-1 min-w-0">
-          <h2 className="text-xl font-semibold text-gray-900 truncate">
+
+        <div className="min-w-0 flex-1">
+          <h2 className="truncate text-xl font-semibold text-gray-900">
             {user.name}
           </h2>
-          <p className="text-sm text-gray-600 truncate">{user.email}</p>
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mt-2">
+          <p className="truncate text-sm text-gray-600">{user.email}</p>
+          <span className="mt-2 inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
             {user.role}
           </span>
         </div>
-        
+
         <div className="flex space-x-2">
-          <button className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">
+          <button className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700">
             Edit
           </button>
-          <button className="px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded hover:bg-gray-50">
+          <button className="rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50">
             View
           </button>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // features/users/components/UserStats.tsx
 function UserStats({ userId }: { userId: string }) {
   const { data: stats } = useSuspenseQuery({
-    queryKey: ['users', userId, 'stats'],
+    queryKey: ["users", userId, "stats"],
     queryFn: () => usersApi.getUserStats(userId),
-  })
+  });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="rounded-lg border bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-gray-600">Total Orders</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.totalOrders}</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {stats.totalOrders}
+            </p>
           </div>
-          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-            <ShoppingBagIcon className="w-6 h-6 text-blue-600" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
+            <ShoppingBagIcon className="h-6 w-6 text-blue-600" />
           </div>
         </div>
       </div>
-      
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+
+      <div className="rounded-lg border bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-gray-600">Revenue</p>
-            <p className="text-2xl font-bold text-gray-900">${stats.totalRevenue}</p>
+            <p className="text-2xl font-bold text-gray-900">
+              ${stats.totalRevenue}
+            </p>
           </div>
-          <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-            <CurrencyDollarIcon className="w-6 h-6 text-green-600" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100">
+            <CurrencyDollarIcon className="h-6 w-6 text-green-600" />
           </div>
         </div>
       </div>
-      
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+
+      <div className="rounded-lg border bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-gray-600">Last Active</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.lastActive}</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {stats.lastActive}
+            </p>
           </div>
-          <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-            <ClockIcon className="w-6 h-6 text-purple-600" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
+            <ClockIcon className="h-6 w-6 text-purple-600" />
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Page with nested Suspense boundaries
 // app/users/[id]/page.tsx
-import { Suspense } from 'react'
-import { UserProfile } from '@/features/users/components/UserProfile'
-import { UserStats } from '@/features/users/components/UserStats'
-import { RecentActivity } from '@/features/users/components/RecentActivity'
-import { 
-  UserProfileSkeleton, 
-  UserStatsSkeleton, 
-  RecentActivitySkeleton 
-} from '@/components/ui/skeletons'
+import { Suspense } from "react";
+import { UserProfile } from "@/features/users/components/UserProfile";
+import { UserStats } from "@/features/users/components/UserStats";
+import { RecentActivity } from "@/features/users/components/RecentActivity";
+import {
+  UserProfileSkeleton,
+  UserStatsSkeleton,
+  RecentActivitySkeleton,
+} from "@/components/ui/skeletons";
 
 export default function UserPage({ params }: { params: { id: string } }) {
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className="container mx-auto space-y-8 py-8">
       {/* Each section has its own Suspense boundary */}
       <Suspense fallback={<UserProfileSkeleton />}>
         <UserProfile userId={params.id} />
       </Suspense>
-      
+
       <Suspense fallback={<UserStatsSkeleton />}>
         <UserStats userId={params.id} />
       </Suspense>
-      
+
       <Suspense fallback={<RecentActivitySkeleton />}>
         <RecentActivity userId={params.id} />
       </Suspense>
     </div>
-  )
+  );
 }
 ```
 
@@ -248,75 +260,80 @@ export default function UserPage({ params }: { params: { id: string } }) {
 // Reusable skeleton building blocks
 // components/ui/skeletons/SkeletonBase.tsx
 interface SkeletonProps {
-  className?: string
-  children?: React.ReactNode
+  className?: string;
+  children?: React.ReactNode;
 }
 
-export function Skeleton({ className = '', children }: SkeletonProps) {
+export function Skeleton({ className = "", children }: SkeletonProps) {
   return (
-    <div className={`animate-pulse bg-gray-200 rounded ${className}`}>
+    <div className={`animate-pulse rounded bg-gray-200 ${className}`}>
       {children}
     </div>
-  )
+  );
 }
 
 // Skeleton composition utilities
-export function SkeletonText({ lines = 1, className = '' }: { lines?: number; className?: string }) {
+export function SkeletonText({
+  lines = 1,
+  className = "",
+}: {
+  lines?: number;
+  className?: string;
+}) {
   return (
     <div className={`space-y-2 ${className}`}>
       {Array.from({ length: lines }).map((_, i) => (
-        <Skeleton 
-          key={i} 
-          className={`h-4 ${i === lines - 1 ? 'w-3/4' : 'w-full'}`} 
+        <Skeleton
+          key={i}
+          className={`h-4 ${i === lines - 1 ? "w-3/4" : "w-full"}`}
         />
       ))}
     </div>
-  )
+  );
 }
 
-export function SkeletonCard({ children, className = '' }: SkeletonProps) {
+export function SkeletonCard({ children, className = "" }: SkeletonProps) {
   return (
-    <div className={`bg-white rounded-lg shadow-sm border p-6 ${className}`}>
+    <div className={`rounded-lg border bg-white p-6 shadow-sm ${className}`}>
       {children}
     </div>
-  )
+  );
 }
 
 // Usage with composition
 function ProductCardSkeleton() {
   return (
     <SkeletonCard>
-      <Skeleton className="w-full h-48 mb-4" /> {/* Image */}
+      <Skeleton className="mb-4 h-48 w-full" /> {/* Image */}
       <SkeletonText lines={2} className="mb-2" /> {/* Title & description */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Skeleton className="h-6 w-20" /> {/* Price */}
         <Skeleton className="h-8 w-24" /> {/* Button */}
       </div>
     </SkeletonCard>
-  )
+  );
 }
 
 // Error boundaries with skeleton fallbacks
-function SuspenseWithErrorBoundary({ 
-  children, 
-  fallback, 
-  errorFallback 
+function SuspenseWithErrorBoundary({
+  children,
+  fallback,
+  errorFallback,
 }: {
-  children: React.ReactNode
-  fallback: React.ReactNode
-  errorFallback?: React.ReactNode
+  children: React.ReactNode;
+  fallback: React.ReactNode;
+  errorFallback?: React.ReactNode;
 }) {
   return (
     <ErrorBoundary fallback={errorFallback || fallback}>
-      <Suspense fallback={fallback}>
-        {children}
-      </Suspense>
+      <Suspense fallback={fallback}>{children}</Suspense>
     </ErrorBoundary>
-  )
+  );
 }
 ```
 
 This pattern provides:
+
 - **Better perceived performance** - users see content structure immediately
 - **Consistent loading states** - predictable UX across the app
 - **Granular loading** - different sections load independently

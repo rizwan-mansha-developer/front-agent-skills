@@ -22,22 +22,26 @@ bash /mnt/skills/user/test-generator/scripts/generate-tests.sh [file_path] [test
 ```
 
 **Arguments:**
+
 - `file_path` - Path to source file to generate tests for
 - `test_type` - Type of tests: unit, integration, e2e (defaults to unit)
 
 **Examples:**
 
 Generate unit tests for a React component:
+
 ```bash
 bash /mnt/skills/user/test-generator/scripts/generate-tests.sh src/components/Button.tsx unit
 ```
 
 Generate integration tests for an API:
+
 ```bash
 bash /mnt/skills/user/test-generator/scripts/generate-tests.sh src/api/users.js integration
 ```
 
 Generate all test types:
+
 ```bash
 bash /mnt/skills/user/test-generator/scripts/generate-tests.sh src/utils/helpers.js all
 ```
@@ -51,7 +55,7 @@ bash /mnt/skills/user/test-generator/scripts/generate-tests.sh src/utils/helpers
   "test_file": "src/components/__tests__/Button.test.tsx",
   "coverage_areas": [
     "props validation",
-    "click handlers", 
+    "click handlers",
     "accessibility",
     "error states",
     "edge cases"
@@ -69,6 +73,7 @@ bash /mnt/skills/user/test-generator/scripts/generate-tests.sh src/utils/helpers
 🎯 Coverage: {coverage_areas}
 
 **Test Categories:**
+
 - Unit tests: {unit_count}
 - Integration tests: {integration_count}
 - Edge cases: {edge_count}

@@ -14,6 +14,7 @@ Next.js 16+ frontend development best practices for consuming third-party APIs (
 ## When to Apply
 
 Reference these guidelines when:
+
 - Writing new React components or Next.js pages
 - Implementing client-side data fetching and state management
 - Reviewing frontend code for performance issues
@@ -25,16 +26,16 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Eliminating Waterfalls | CRITICAL | `async-` |
-| 2 | Bundle Size Optimization | CRITICAL | `bundle-` |
-| 3 | Architecture & Patterns | CRITICAL | `architecture-` |
-| 4 | Client-Side Data Fetching | MEDIUM-HIGH | `client-` |
-| 5 | Re-render Optimization | MEDIUM | `rerender-` |
-| 6 | Rendering Performance | MEDIUM | `rendering-` |
-| 7 | JavaScript Performance | LOW-MEDIUM | `js-` |
-| 8 | Advanced Patterns | LOW | `advanced-` |
+| Priority | Category                  | Impact      | Prefix          |
+| -------- | ------------------------- | ----------- | --------------- |
+| 1        | Eliminating Waterfalls    | CRITICAL    | `async-`        |
+| 2        | Bundle Size Optimization  | CRITICAL    | `bundle-`       |
+| 3        | Architecture & Patterns   | CRITICAL    | `architecture-` |
+| 4        | Client-Side Data Fetching | MEDIUM-HIGH | `client-`       |
+| 5        | Re-render Optimization    | MEDIUM      | `rerender-`     |
+| 6        | Rendering Performance     | MEDIUM      | `rendering-`    |
+| 7        | JavaScript Performance    | LOW-MEDIUM  | `js-`           |
+| 8        | Advanced Patterns         | LOW         | `advanced-`     |
 
 ## Quick Reference
 
@@ -130,6 +131,7 @@ rules/bundle-barrel-imports.md
 ```
 
 Each rule file contains:
+
 - Brief explanation of why it matters
 - Incorrect code example with explanation
 - Correct code example with explanation

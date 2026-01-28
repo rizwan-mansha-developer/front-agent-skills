@@ -119,9 +119,9 @@ side-effects-cache=true
 ```yaml
 # pnpm-workspace.yaml
 packages:
-  - 'apps/*'
-  - 'packages/*'
-  - 'tools/*'
+  - "apps/*"
+  - "packages/*"
+  - "tools/*"
 ```
 
 ```json
@@ -251,25 +251,25 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
-          
+
       - name: Get pnpm store directory
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-          
+
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
@@ -277,19 +277,19 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-            
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
       - name: Type check
         run: pnpm type-check
-        
+
       - name: Lint
         run: pnpm lint
-        
+
       - name: Test
         run: pnpm test
-        
+
       - name: Build
         run: pnpm build
 ```
@@ -322,7 +322,7 @@ jobs:
 ```bash
 # Installation speed comparison
 npm install     # ~45s
-yarn install    # ~35s  
+yarn install    # ~35s
 pnpm install    # ~25s
 
 # Disk space usage
@@ -337,6 +337,7 @@ pnpm workspaces # Fastest, minimal duplication
 ```
 
 This pattern provides:
+
 - **Faster installations** - up to 2x faster than npm
 - **Disk space efficiency** - uses hard links to save space
 - **Strict dependency resolution** - prevents phantom dependencies

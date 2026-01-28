@@ -4,13 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - 'skills/react-best-practices/**'
-      - 'packages/react-best-practices-build/**'
+      - "skills/react-best-practices/**"
+      - "packages/react-best-practices-build/**"
   pull_request:
     branches: [main]
     paths:
-      - 'skills/react-best-practices/**'
-      - 'packages/react-best-practices-build/**'
+      - "skills/react-best-practices/**"
+      - "packages/react-best-practices-build/**"
 
 jobs:
   validate:
@@ -25,8 +25,8 @@ jobs:
           version: 10.24.0
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: "20"
+          cache: "pnpm"
           cache-dependency-path: packages/react-best-practices-build/pnpm-lock.yaml
       - run: pnpm install
       - run: pnpm validate
